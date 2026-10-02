@@ -106,7 +106,9 @@ export function register(on: On) {
       key: 'under-management',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingX: 1,
+      paddingLeft: 1,
+      // Claude Code puts the band's own [-] in the top right corner: keep clear of it.
+      paddingRight: 5,
       children: [
         Box({
           flexDirection: 'row',
