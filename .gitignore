@@ -1,0 +1,3 @@
+# Written by Claude Code whenever it loads the mod; regenerate with /plugin-types.
+.claude-plugin/types/
+node_modules/

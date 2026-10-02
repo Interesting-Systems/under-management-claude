@@ -1,0 +1,4 @@
+{
+  "description": "Offers Under Management above the prompt while Claude works, opens it in its own window, and tells it when Claude has finished",
+  "modules": ["./register.ts"]
+}

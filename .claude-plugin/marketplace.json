@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "interesting-systems",
+  "description": "Games from Interesting Systems for Claude Code.",
+  "owner": { "name": "Interesting Systems", "url": "https://github.com/Interesting-Systems" },
+  "plugins": [
+    {
+      "name": "under-management",
+      "source": "./plugins/under-management",
+      "description": "Play Under Management while Claude works on a long turn. It opens in a window of its own and pauses itself when Claude finishes."
+    }
+  ]
+}

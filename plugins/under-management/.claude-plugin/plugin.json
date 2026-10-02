@@ -1,0 +1,11 @@
+{
+  "name": "under-management",
+  "displayName": "Under Management",
+  "version": "0.1.0",
+  "description": "Play Under Management while Claude works on a long turn. After 20 s of work, press 1: the game opens in a 960 x 600 window of its own and pauses itself when Claude finishes.",
+  "author": { "name": "Interesting Systems", "url": "https://github.com/Interesting-Systems" },
+  "homepage": "https://github.com/Interesting-Systems/under-management-claude",
+  "repository": "https://github.com/Interesting-Systems/under-management-claude",
+  "license": "MIT",
+  "keywords": ["game", "mod", "waiting", "dungeon"]
+}

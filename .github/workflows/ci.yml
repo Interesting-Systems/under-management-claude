@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  mod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Claude Code
+        run: |
+          npm i -g @anthropic-ai/claude-code
+          claude --version
+          # Hooks modules and `claude plugin test` need 2.1.287 or later.
+          have="$(claude --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -n1)"
+          lowest="$(printf '%s\n%s\n' 2.1.287 "$have" | sort -V | head -n1)"
+          if [ "$lowest" != "2.1.287" ]; then
+            echo "::error::Claude Code $have is older than 2.1.287"
+            exit 1
+          fi
+
+      - name: Validate the marketplace
+        run: claude plugin validate --strict .
+
+      - name: Validate the plugin
+        run: claude plugin validate --strict plugins/under-management
+
+      - name: Test the plugin
+        shell: bash
+        run: |
+          # `claude plugin test` refuses to run while Claude Code's remote rollout switch for hooks
+          # modules is off for the account or runner. That is not a test failure, so say so in a
+          # warning and pass. Any other failure, a failing test included, fails the job.
+          set +e
+          claude plugin test plugins/under-management 2>&1 | tee test-output.txt
+          status="${PIPESTATUS[0]}"
+          set -e
+          if [ "$status" -eq 0 ]; then
+            exit 0
+          fi
+          if grep -q 'claude plugin test: hooks modules are turned off in this process: the rollout switch' test-output.txt; then
+            echo "::warning title=Plugin tests did not run::Claude Code turned hooks modules off on this runner (the rollout switch served off), so the tests were skipped."
+            exit 0
+          fi
+          exit "$status"
