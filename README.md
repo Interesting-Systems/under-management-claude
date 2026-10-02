@@ -130,7 +130,7 @@ launchers for each platform, the command's arguments). Tests are in
 
 ## About
 
-Under Management is made by one person and Claude Code: the code, the graphics, the sound, and
+Under Management is made by Claude Code (and one person): the code, the graphics, the sound, and
 this mod.
 
 MIT license. Under Management is a game from [Interesting Systems](https://github.com/Interesting-Systems).
